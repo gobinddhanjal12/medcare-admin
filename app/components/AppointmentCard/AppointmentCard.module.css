@@ -1,0 +1,47 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  color: #000000;
+  border-radius: 10px;
+  box-shadow: 2px 2px 8px #00000018;
+  gap: 20px;
+  padding: 10px;
+}
+
+.title {
+  font-size: medium;
+}
+
+.para {
+  font-size: small;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  margin-left: auto;
+}
+
+.approve,
+.reject {
+  border: none;
+  border-radius: 50px;
+  color: #fff;
+  font-size: small;
+  padding: 8px;
+  font-weight: 600;
+}
+
+.approve {
+  background: #0dc700;
+}
+
+.reject {
+  background: #ff0000;
+}
+
+.error {
+  color: #ff0000;
+}
