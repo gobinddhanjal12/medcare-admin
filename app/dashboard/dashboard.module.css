@@ -1,6 +1,50 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 .cardContainer {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+
   gap: 20px;
   justify-content: center;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.btn {
+  padding: 20px;
+  width: 100%;
+  border-radius: 10px;
+  background: #f7f7f7;
+  border: none;
+}
+
+.active {
+  background: #1c4a2a;
+  color: #ffffff;
+}
+
+@media (min-width: 768px) {
+  .cardContainer {
+    grid-template-columns: repeat(3, minmax(350px, 1fr));
+  }
+
+  .dashboard {
+    flex-direction: row;
+  }
+
+  .left {
+    flex: 25%;
+  }
+
+  .right {
+    flex: 75%;
+  }
 }
