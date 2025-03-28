@@ -15,7 +15,7 @@ export const AppointmentCard = ({ appointment, refreshAppointments }) => {
       }
 
       const response = await fetch(
-        `http://localhost:3000/api/v1/appointments/${appointment.id}/request-status`,
+        `http://localhost:3000/api/v1/admin/appointments/${appointment.id}/request-status`,
         {
           method: "PATCH",
           headers: {

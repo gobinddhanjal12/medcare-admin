@@ -24,16 +24,18 @@
   border-radius: 10px;
   background: #f7f7f7;
   border: none;
+  cursor: pointer;
 }
 
 .active {
   background: #1c4a2a;
   color: #ffffff;
+  font-weight: 500;
 }
 
 @media (min-width: 768px) {
   .cardContainer {
-    grid-template-columns: repeat(3, minmax(350px, 1fr));
+    grid-template-columns: repeat(2, minmax(320px, 1fr));
   }
 
   .dashboard {
