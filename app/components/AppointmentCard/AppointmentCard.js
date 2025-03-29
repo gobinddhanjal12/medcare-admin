@@ -15,7 +15,7 @@ export const AppointmentCard = ({ appointment, refreshAppointments }) => {
       }
 
       const response = await fetch(
-        `http://localhost:3000/api/v1/admin/appointments/${appointment.id}/request-status`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/appointments/${appointment.id}/request-status`,
         {
           method: "PATCH",
           headers: {
