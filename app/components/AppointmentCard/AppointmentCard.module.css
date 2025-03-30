@@ -32,16 +32,53 @@
   font-size: small;
   padding: 8px;
   font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
 }
 
 .approve {
-  background: #0dc700;
+  background: #1c4a2a;
 }
 
-.reject {
-  background: #ff0000;
+.approve:hover {
+  background: #178538;
+}
+
+.reject{
+  background: #f50000;
+}
+
+.reject:hover {
+  background: #ff1e1e;
 }
 
 .error {
   color: #ff0000;
+}
+
+.doctorDetails{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.doctorDetails h3{
+  font-weight: 600;
+}
+
+.doctorImage{
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.detail{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+
+.icon {
+  width: 18px;
+  height: 18px;
 }

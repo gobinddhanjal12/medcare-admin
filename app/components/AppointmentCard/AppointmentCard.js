@@ -1,5 +1,7 @@
 import { useState } from "react";
 import styles from "./AppointmentCard.module.css";
+import { FaUserDoctor } from "react-icons/fa6";
+import { Calendar, Clock, Laptop, MapPin, User } from "lucide-react";
 
 export const AppointmentCard = ({ appointment, refreshAppointments }) => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -40,30 +42,51 @@ export const AppointmentCard = ({ appointment, refreshAppointments }) => {
     }
   };
 
-  const formatDateTime = (dateString, timeString) => {
+  const formatDate = (dateString) => {
     const dateObj = new Date(dateString);
-    const timeParts = timeString.split(":");
-
-    let hours = parseInt(timeParts[0]);
-    const minutes = timeParts[1];
-    const amPm = hours >= 12 ? "PM" : "AM";
-
-    hours = hours % 12 || 12;
-
     return `${dateObj.getDate()}-${
       dateObj.getMonth() + 1
-    }-${dateObj.getFullYear()}, ${hours}:${minutes} ${amPm}`;
+    }-${dateObj.getFullYear()}`;
   };
+
+  const formatTime = (timeString) => {
+    const [hours, minutes] = timeString.split(":");
+    const hour = parseInt(hours, 10);
+    const amPm = hour >= 12 ? "PM" : "AM";
+    const formattedHour = hour % 12 || 12;
+    return `${formattedHour}:${minutes} ${amPm}`;
+  };
+
 
   return (
     <div className={styles.card}>
       <h2 className={styles.title}>ID: {appointment.id}</h2>
-      <h2 className={styles.title}>Doctor: {appointment.doctor_name}</h2>
-      <h2 className={styles.title}>Patient: {appointment.patient_name}</h2>
-      <h3 className={styles.para}>
-        Date of Appointment:{" "}
-        {formatDateTime(appointment.appointment_date, appointment.start_time)}
-      </h3>
+
+      <p className={styles.detail}>
+        <FaUserDoctor className={styles.icon} /> {appointment.doctor_name}
+      </p>
+      <p className={styles.detail}>
+        <User className={styles.icon} /> {appointment.patient_name}
+      </p>
+
+      <p className={styles.detail}>
+        <Calendar className={styles.icon} />{" "}
+        {formatDate(appointment.appointment_date)}
+      </p>
+
+      <p className={styles.detail}>
+        <Clock className={styles.icon} /> {formatTime(appointment.start_time)}
+      </p>
+
+      {appointment.consultation_type === "online" ? (
+        <p className={styles.detail}>
+          <Laptop className={styles.icon} /> Online
+        </p>
+      ) : (
+        <p className={styles.detail}>
+          <MapPin className={styles.icon} /> {appointment.location}
+        </p>
+      )}
 
       <hr className={styles.line} />
 

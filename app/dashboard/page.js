@@ -38,8 +38,6 @@ const AdminDashboard = () => {
         throw new Error(data.message || "Failed to fetch");
       }
 
-      console.log("Appointments Response:", data);
-
       setAppointments(data.data || []);
       setTotalPages(data.pagination.pages || 1);
     } catch (error) {
@@ -76,7 +74,6 @@ const AdminDashboard = () => {
         </div>
 
         <div className={styles.right}>
-
           {activeTab === "pending" && (
             <>
               <div className={styles.cardContainer}>
