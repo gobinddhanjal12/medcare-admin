@@ -6,6 +6,8 @@ import { Calendar, Clock, Laptop, MapPin, User } from "lucide-react";
 export const AppointmentCard = ({ appointment, refreshAppointments }) => {
   const [errorMessage, setErrorMessage] = useState("");
 
+  const [loading, setLoading] = useState(false);
+
   const handleStatusChange = async (newStatus) => {
     try {
       setErrorMessage("");
@@ -15,6 +17,8 @@ export const AppointmentCard = ({ appointment, refreshAppointments }) => {
         console.error("No token found");
         return;
       }
+
+      setLoading(true);
 
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/appointments/${appointment.id}/request-status`,
@@ -39,6 +43,8 @@ export const AppointmentCard = ({ appointment, refreshAppointments }) => {
     } catch (error) {
       console.error("Error updating appointment status:", error.message);
       setErrorMessage(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -56,7 +62,6 @@ export const AppointmentCard = ({ appointment, refreshAppointments }) => {
     const formattedHour = hour % 12 || 12;
     return `${formattedHour}:${minutes} ${amPm}`;
   };
-
 
   return (
     <div className={styles.card}>
@@ -91,18 +96,27 @@ export const AppointmentCard = ({ appointment, refreshAppointments }) => {
       <hr className={styles.line} />
 
       <div className={styles.buttons}>
-        <button
-          className={styles.approve}
-          onClick={() => handleStatusChange("approved")}
-        >
-          Approve
-        </button>
-        <button
-          className={styles.reject}
-          onClick={() => handleStatusChange("rejected")}
-        >
-          Reject
-        </button>
+        {loading ? (
+          <button className={styles.loading}>Loading</button>
+        ) : (
+          <button
+            className={styles.approve}
+            onClick={() => handleStatusChange("approved")}
+          >
+            Approve
+          </button>
+        )}
+
+        {loading ? (
+          <button className={styles.loading}>Loading</button>
+        ) : (
+          <button
+            className={styles.reject}
+            onClick={() => handleStatusChange("rejected")}
+          >
+            Reject
+          </button>
+        )}
       </div>
 
       {errorMessage && <p className={styles.error}>{errorMessage}</p>}
