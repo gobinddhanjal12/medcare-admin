@@ -3,12 +3,17 @@
 import { useState } from "react";
 import styles from "./login.module.css";
 import { Mail, Lock } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  const { setUser } = useAuth();
 
   const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -28,15 +33,16 @@ export default function Login() {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify(loginData),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem("token", data.data.token);
-        localStorage.setItem("user", JSON.stringify(data.data.user));
-        window.location.href = "/";
+        console.log(data.data);
+        setUser(data.data);
+        router.push("/dashboard");
       } else {
         setError(data.message || "Invalid credentials");
       }

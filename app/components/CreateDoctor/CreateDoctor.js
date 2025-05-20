@@ -31,12 +31,6 @@ const CreateDoctor = () => {
     e.preventDefault();
 
     try {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        console.error("No token found");
-        return;
-      }
-
       const formDataToSend = new FormData();
       Object.keys(formData).forEach((key) => {
         formDataToSend.append(key, formData[key]);
@@ -46,9 +40,8 @@ const CreateDoctor = () => {
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/doctors`,
         {
           method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+
+          credentials: "include",
           body: formDataToSend,
         }
       );
@@ -119,7 +112,7 @@ const CreateDoctor = () => {
           onChange={handleChange}
           required
         />
-     
+
         <input
           type="number"
           className={styles.inputText}

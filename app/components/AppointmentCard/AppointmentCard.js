@@ -11,12 +11,6 @@ export const AppointmentCard = ({ appointment, refreshAppointments }) => {
   const handleStatusChange = async (newStatus) => {
     try {
       setErrorMessage("");
-      const token = localStorage.getItem("token");
-
-      if (!token) {
-        console.error("No token found");
-        return;
-      }
 
       setLoading(true);
 
@@ -26,8 +20,8 @@ export const AppointmentCard = ({ appointment, refreshAppointments }) => {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
           body: JSON.stringify({ status: newStatus }),
         }
       );

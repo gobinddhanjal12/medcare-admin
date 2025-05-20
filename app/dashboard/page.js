@@ -15,20 +15,14 @@ const AdminDashboard = () => {
 
   const fetchAppointments = async () => {
     try {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        console.error("No token found");
-        return;
-      }
-
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/appointments/pending?page=${currentPage}&limit=${itemsPerPage}`,
         {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
         }
       );
 
